@@ -1,0 +1,12 @@
+# robots.txt — Centro Oeste Agroindústria
+# https://www.centroesteagroindustria.com.br/
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.centroesteagroindustria.com.br/sitemap.xml
+
+# Bloquear diretórios internos
+Disallow: /assets/models/
+Disallow: /data/
