@@ -196,9 +196,7 @@
         <div class="nav-item">
           <a href="#equipamentos" class="nav-link" id="navLinkEquipamentos">Equipamentos</a>
         </div>
-        <div class="nav-item">
-          <a href="#projetos" class="nav-link" id="navLinkProjetos">Projetos</a>
-        </div>
+
         <div class="nav-item">
           <a href="#videos" class="nav-link" id="navLinkVideos">Vídeos</a>
         </div>
@@ -388,30 +386,6 @@
       </div>
     </section>
 
-    <!-- ==========================================
-         SEÇÃO PROJETOS EXECUTADOS
-         ========================================== -->
-    <section class="section-padding bg-light" id="projetos">
-      <div class="container projects-layout">
-        <!-- Lateral Esquerda -->
-        <div class="projects-sidebar">
-          <div class="section-header">
-            <h2 class="section-title">Projetos Executados</h2>
-          </div>
-          <p>
-            Soluções completas desenvolvidas para atender as necessidades de cada cliente com eficiência, qualidade e segurança.
-          </p>
-          <a href="https://wa.me/5531999999999?text=Olá! Gostaria de ver mais detalhes sobre os projetos industriais executados." target="_blank" rel="noopener noreferrer" class="btn btn-secondary" id="projectsVerTodosBtn">
-            Ver Todos os Projetos &rarr;
-          </a>
-        </div>
-
-        <!-- Grade Direita de Fotos (Gerada dinamicamente via JS) -->
-        <div class="projects-grid" id="projectsGrid">
-          <!-- Inserido via JS de site-data.js -->
-        </div>
-      </div>
-    </section>
 
     <!-- ==========================================
          SEÇÃO VÍDEOS
@@ -450,14 +424,6 @@
         <div class="section-header text-center">
           <span class="section-subtitle">Nosso Trabalho</span>
           <h2 class="section-title">Galeria de Fotos</h2>
-        </div>
-
-        <!-- Filtros de Categoria -->
-        <div class="gallery-filters" id="galleryFilters" role="group" aria-label="Filtrar galeria por categoria">
-          <button type="button" class="gallery-filter-btn active" data-filter="todos" aria-pressed="true" id="filterTodos">Todos</button>
-          <button type="button" class="gallery-filter-btn" data-filter="equipamentos" aria-pressed="false" id="filterEquipamentos">Equipamentos</button>
-          <button type="button" class="gallery-filter-btn" data-filter="fabricas" aria-pressed="false" id="filterFabricas">Fábricas</button>
-          <button type="button" class="gallery-filter-btn" data-filter="instalacoes" aria-pressed="false" id="filterInstalacoes">Instalações</button>
         </div>
 
         <!-- Grade da Galeria (preenchida via JS de site-data.js) -->
@@ -639,7 +605,7 @@
           <li><a href="#empresa">Empresa</a></li>
           <li><a href="#equipamentos">Equipamentos</a></li>
           <li><a href="#pecas">Peças de Reposição</a></li>
-          <li><a href="#projetos">Projetos</a></li>
+
           <li><a href="#videos">Vídeos</a></li>
           <li><a href="#galeria">Galeria</a></li>
           <li><a href="#contato">Contato</a></li>
@@ -718,20 +684,24 @@
   </div>
 
   <!-- ==========================================
-       MODAL DE IMAGEM (LIGHTBOX PROJETOS)
+       LIGHTBOX DE IMAGEM GENÉRICA (EQUIPAMENTOS)
        ========================================== -->
-  <div class="image-modal" id="imageModal" role="dialog" aria-label="Visualizador de Imagem" aria-modal="true">
-    <div class="image-modal-content">
-      <button type="button" class="image-modal-close" id="imageModalClose" aria-label="Fechar imagem">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        Fechar
-      </button>
-      <img id="imageModalSource" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'/%3E" alt="Visualização em tamanho cheio do projeto" class="image-modal-img">
+  <div class="image-lightbox" id="imageLightbox" role="dialog" aria-label="Visualizador de Imagem" aria-modal="true">
+    <button type="button" class="image-lightbox-close" id="imageLightboxClose" aria-label="Fechar visualizador">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <div class="image-lightbox-content">
+      <img id="imageLightboxImg" src="" alt="" class="image-lightbox-img">
+      <div class="image-lightbox-footer">
+        <span id="imageLightboxCaption" class="image-lightbox-caption"></span>
+      </div>
     </div>
   </div>
+
+
 
   <!-- ==========================================
        LIGHTBOX DA GALERIA DE FOTOS

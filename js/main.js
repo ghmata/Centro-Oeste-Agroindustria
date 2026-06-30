@@ -82,15 +82,9 @@ document.addEventListener('DOMContentLoaded', () => {
         title.className = 'card-equipment-title';
         title.textContent = eq.name;
 
-        // Container do viewer (3D ou imagem com fallback)
+        // Container do viewer (3D ou imagem diretamente)
         const viewerDiv = document.createElement('div');
         viewerDiv.className = 'card-equipment-viewer';
-        viewerDiv.setAttribute('data-active-tab', '3d');
-
-        // Painel da aba 3D
-        const panel3d = document.createElement('div');
-        panel3d.className = 'viewer-panel viewer-panel-3d active';
-        panel3d.setAttribute('data-tab-panel', '3d');
 
         if (eq.model3d) {
           // Modelo 3D disponível — usa model-viewer
@@ -104,94 +98,19 @@ document.addEventListener('DOMContentLoaded', () => {
           modelViewer.setAttribute('shadow-intensity', '1');
           modelViewer.setAttribute('auto-rotate', '');
           modelViewer.className = 'equipment-model-viewer';
-          panel3d.appendChild(modelViewer);
+          viewerDiv.appendChild(modelViewer);
         } else {
-          // Fallback: imagem estática com overlay "Modelo 3D em breve"
-          const fallbackDiv = document.createElement('div');
-          fallbackDiv.className = 'viewer-3d-fallback';
-
-          const fallbackImg = document.createElement('img');
-          fallbackImg.src = eq.image;
-          fallbackImg.alt = eq.name;
-          fallbackImg.loading = 'lazy';
-          fallbackImg.className = 'viewer-fallback-img';
-
-          const fallbackOverlay = document.createElement('div');
-          fallbackOverlay.className = 'viewer-fallback-overlay';
-          // Ícone de cubo 3D
-          fallbackOverlay.innerHTML = `
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M21 16.5c0 .38-.21.71-.53.88l-7.9 4.44c-.16.09-.34.13-.52.14h-.1c-.18-.01-.36-.05-.52-.14l-7.9-4.44A.991.991 0 0 1 3 16.5v-9c0-.38.21-.71.53-.88l7.9-4.44c.16-.09.34-.14.52-.14h.1c.18 0 .36.05.52.14l7.9 4.44c.32.17.53.5.53.88v9z" fill="none" stroke="currentColor" stroke-width="1.5"/>
-              <line x1="3.27" y1="6.96" x2="12" y2="12.01" stroke="currentColor" stroke-width="1.5"/>
-              <line x1="12" y1="12.01" x2="20.73" y2="6.96" stroke="currentColor" stroke-width="1.5"/>
-              <line x1="12" y1="22.08" x2="12" y2="12" stroke="currentColor" stroke-width="1.5"/>
-            </svg>
-            <span>Modelo 3D em breve</span>
-          `;
-          // <!-- TODO: Pendente fornecimento pelo cliente -->
-
-          fallbackDiv.appendChild(fallbackImg);
-          fallbackDiv.appendChild(fallbackOverlay);
-          panel3d.appendChild(fallbackDiv);
+          // Apenas a imagem estática do render 3D do equipamento
+          const imgEl = document.createElement('img');
+          imgEl.src = eq.image;
+          imgEl.alt = eq.name;
+          imgEl.loading = 'lazy';
+          imgEl.className = 'viewer-fallback-img';
+          viewerDiv.appendChild(imgEl);
         }
-
-        // Painel da aba Fotos (mostra a imagem estática do equipamento)
-        const panelFotos = document.createElement('div');
-        panelFotos.className = 'viewer-panel viewer-panel-fotos';
-        panelFotos.setAttribute('data-tab-panel', 'fotos');
-
-        const fotosImg = document.createElement('img');
-        fotosImg.src = eq.image;
-        fotosImg.alt = `${eq.name} - Foto`;
-        fotosImg.loading = 'lazy';
-        fotosImg.className = 'viewer-fotos-img';
-        panelFotos.appendChild(fotosImg);
-
-        // Painel da aba Vídeos (placeholder com CTA para WhatsApp)
-        const panelVideos = document.createElement('div');
-        panelVideos.className = 'viewer-panel viewer-panel-videos';
-        panelVideos.setAttribute('data-tab-panel', 'videos');
-
-        const videosPlaceholder = document.createElement('div');
-        videosPlaceholder.className = 'viewer-videos-placeholder';
-        videosPlaceholder.innerHTML = `
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M8 5v14l11-7z"/>
-          </svg>
-          <span>Solicitar vídeo</span>
-        `;
-        panelVideos.appendChild(videosPlaceholder);
-
-        viewerDiv.appendChild(panel3d);
-        viewerDiv.appendChild(panelFotos);
-        viewerDiv.appendChild(panelVideos);
-
-        // Abas de navegação
-        const tabsDiv = document.createElement('div');
-        tabsDiv.className = 'card-equipment-tabs';
-        tabsDiv.setAttribute('role', 'tablist');
-        tabsDiv.setAttribute('aria-label', `Abas de visualização - ${eq.name}`);
-
-        const tabs = [
-          { key: '3d', label: 'Render 3D' },
-          { key: 'fotos', label: 'Fotos' },
-          { key: 'videos', label: 'Vídeos' },
-        ];
-
-        tabs.forEach((tab, i) => {
-          const btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = `tab-btn${i === 0 ? ' active' : ''}`;
-          btn.setAttribute('role', 'tab');
-          btn.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
-          btn.setAttribute('data-tab', tab.key);
-          btn.textContent = tab.label;
-          tabsDiv.appendChild(btn);
-        });
 
         card.appendChild(title);
         card.appendChild(viewerDiv);
-        card.appendChild(tabsDiv);
 
         equipmentsGrid.appendChild(card);
       });
@@ -234,64 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // 0.4 Renderizar Projetos
-    const projectsGrid = document.getElementById('projectsGrid');
-    if (projectsGrid) {
-      projectsGrid.innerHTML = '';
-      SITE_DATA.projects.forEach(project => {
-        const card = document.createElement('div');
-        card.className = 'card-project';
-        card.id = `project-${project.id}`;
 
-        const imgDiv = document.createElement('div');
-        imgDiv.className = 'card-project-img';
-        const img = document.createElement('img');
-        img.src = project.image;
-        img.alt = project.title;
-        img.loading = 'lazy';
-        imgDiv.appendChild(img);
-
-        // Criar overlay interativo "Clique aqui"
-        const overlay = document.createElement('div');
-        overlay.className = 'card-project-overlay';
-        
-        const overlayIcon = document.createElement('span');
-        overlayIcon.className = 'card-project-overlay-icon';
-        overlayIcon.innerHTML = `
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-            <path d="M12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/>
-          </svg>
-        `;
-        
-        const overlayText = document.createElement('span');
-        overlayText.className = 'card-project-overlay-text';
-        overlayText.textContent = 'Clique aqui';
-        
-        overlay.appendChild(overlayIcon);
-        overlay.appendChild(overlayText);
-        imgDiv.appendChild(overlay);
-
-        const info = document.createElement('div');
-        info.className = 'card-project-info';
-
-        const title = document.createElement('h3');
-        title.className = 'card-project-title';
-        title.textContent = project.title;
-
-        const subtitle = document.createElement('span');
-        subtitle.className = 'card-project-sub';
-        subtitle.textContent = project.subtitle;
-
-        info.appendChild(title);
-        info.appendChild(subtitle);
-
-        card.appendChild(imgDiv);
-        card.appendChild(info);
-
-        projectsGrid.appendChild(card);
-      });
-    }
 
     // 0.5 Renderizar Vídeos
     const videosGrid = document.getElementById('videosGrid');
@@ -471,100 +333,10 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', updateActiveLink);
   updateActiveLink(); // Executa na carga inicial
 
-  // ==========================================
-  // 5. LIGHTBOX / MODAL DE IMAGEM (EVENT DELEGATION - PROJETOS)
-  // ==========================================
-  const imageModal = document.getElementById('imageModal');
-  const imageModalSource = document.getElementById('imageModalSource');
-  const imageModalClose = document.getElementById('imageModalClose');
-  const projectsGridEl = document.getElementById('projectsGrid');
 
-  if (imageModal && imageModalSource && imageModalClose && projectsGridEl) {
-    projectsGridEl.addEventListener('click', (e) => {
-      const card = e.target.closest('.card-project');
-      if (card) {
-        const img = card.querySelector('.card-project-img img');
-        if (img) {
-          // Define a imagem e o texto alt correspondente para acessibilidade (WCAG 2.1 AA)
-          imageModalSource.setAttribute('src', img.getAttribute('src'));
-          imageModalSource.setAttribute('alt', img.getAttribute('alt') || 'Visualização do projeto em tamanho cheio');
-          imageModal.classList.add('active');
-          document.body.style.overflow = 'hidden'; // Bloqueia o scroll de fundo
-        }
-      }
-    });
 
-    const closeImageModal = () => {
-      imageModal.classList.remove('active');
-      imageModalSource.setAttribute('src', '');
-      imageModalSource.setAttribute('alt', '');
-      document.body.style.overflow = 'auto'; // Restaura o scroll de fundo
-    };
 
-    imageModalClose.addEventListener('click', closeImageModal);
 
-    // Fecha ao clicar fora da imagem (no overlay escuro)
-    imageModal.addEventListener('click', (e) => {
-      if (e.target === imageModal) {
-        closeImageModal();
-      }
-    });
-
-    // Fecha ao pressionar Escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && imageModal.classList.contains('active')) {
-        closeImageModal();
-      }
-    });
-  }
-
-  // ==========================================
-  // 6. SISTEMA DE ABAS DOS EQUIPAMENTOS (EVENT DELEGATION — FASE 4)
-  // ==========================================
-  const equipmentsGridEl = document.getElementById('equipmentsGrid');
-  if (equipmentsGridEl) {
-    equipmentsGridEl.addEventListener('click', (e) => {
-      const tabBtn = e.target.closest('.tab-btn');
-      if (!tabBtn) return;
-
-      e.preventDefault();
-      e.stopPropagation();
-
-      const card = tabBtn.closest('.card-equipment');
-      if (!card) return;
-
-      const tabKey = tabBtn.getAttribute('data-tab');
-      const viewer = card.querySelector('.card-equipment-viewer');
-
-      // Aba de vídeos redireciona para WhatsApp (vídeos ainda não disponíveis inline)
-      if (tabKey === 'videos') {
-        const cardTitle = card.querySelector('.card-equipment-title')?.textContent?.trim() ?? 'equipamento industrial';
-        const message = `Olá! Gostaria de assistir a vídeos do equipamento: *${cardTitle}*.`;
-        const whatsappUrl = `https://wa.me/${SITE_DATA.contact.phoneRaw}?text=${encodeURIComponent(message)}`;
-        window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-        return;
-      }
-
-      // Alternar aba ativa — botões
-      const allTabs = card.querySelectorAll('.tab-btn');
-      allTabs.forEach(btn => {
-        btn.classList.remove('active');
-        btn.setAttribute('aria-selected', 'false');
-      });
-      tabBtn.classList.add('active');
-      tabBtn.setAttribute('aria-selected', 'true');
-
-      // Alternar painel ativo — conteúdo
-      if (viewer) {
-        viewer.setAttribute('data-active-tab', tabKey);
-        const allPanels = viewer.querySelectorAll('.viewer-panel');
-        allPanels.forEach(panel => panel.classList.remove('active'));
-
-        const targetPanel = viewer.querySelector(`[data-tab-panel="${tabKey}"]`);
-        if (targetPanel) targetPanel.classList.add('active');
-      }
-    });
-  }
 
   // ==========================================
   // 7. ANIMAÇÕES DE ENTRADA (INTERSECTION OBSERVER)
@@ -587,8 +359,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Seleciona elementos para animar — inclui galeria e formulário (Fase 3)
     const animTargets = document.querySelectorAll(
-      '.card-equipment, .card-project, .card-video, .feature-item, ' +
-      '.section-header, .projects-sidebar, .videos-sidebar, .spare-part-item, ' +
+      '.card-equipment, .card-video, .feature-item, ' +
+      '.section-header, .videos-sidebar, .spare-part-item, ' +
       '.gallery-item, .contact-info, .contact-form-wrapper, ' +
       '.about-content, .about-visual'
     );
@@ -605,7 +377,6 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // Adiciona delay escalonado para cards em grid
       if (el.classList.contains('card-equipment') || 
-          el.classList.contains('card-project') || 
           el.classList.contains('card-video') ||
           el.classList.contains('feature-item') ||
           el.classList.contains('spare-part-item') ||
@@ -619,6 +390,61 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   animateOnScroll();
+
+  // ==========================================
+  // 7.5 LIGHTBOX DE IMAGEM GENÉRICA (EQUIPAMENTOS)
+  // ==========================================
+  const imageLightbox = document.getElementById('imageLightbox');
+  const imageLightboxImg = document.getElementById('imageLightboxImg');
+  const imageLightboxCaption = document.getElementById('imageLightboxCaption');
+  const imageLightboxClose = document.getElementById('imageLightboxClose');
+  const equipmentsGridEl = document.getElementById('equipmentsGrid');
+
+  if (imageLightbox && imageLightboxImg && imageLightboxCaption && imageLightboxClose && equipmentsGridEl) {
+    equipmentsGridEl.addEventListener('click', (e) => {
+      // Abre ao clicar no card ou na imagem do equipamento
+      const card = e.target.closest('.card-equipment');
+      if (card) {
+        const img = card.querySelector('.card-equipment-viewer img');
+        const title = card.querySelector('.card-equipment-title');
+        
+        if (img) {
+          imageLightboxImg.setAttribute('src', img.getAttribute('src'));
+          imageLightboxImg.setAttribute('alt', img.getAttribute('alt') || 'Equipamento');
+          
+          if (imageLightboxCaption && title) {
+            imageLightboxCaption.textContent = title.textContent;
+          }
+          
+          imageLightbox.classList.add('active');
+          document.body.style.overflow = 'hidden'; // Trava o scroll da página
+          imageLightboxClose.focus(); // Acessibilidade
+        }
+      }
+    });
+
+    const closeImageLightbox = () => {
+      imageLightbox.classList.remove('active');
+      document.body.style.overflow = 'auto';
+      imageLightboxImg.setAttribute('src', '');
+    };
+
+    imageLightboxClose.addEventListener('click', closeImageLightbox);
+
+    // Fecha ao clicar fora da imagem (no overlay escuro)
+    imageLightbox.addEventListener('click', (e) => {
+      if (e.target === imageLightbox) {
+        closeImageLightbox();
+      }
+    });
+
+    // Fecha ao pressionar Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && imageLightbox.classList.contains('active')) {
+        closeImageLightbox();
+      }
+    });
+  }
 
   // ==========================================
   // 8. LAZY LOADING DE IMAGENS

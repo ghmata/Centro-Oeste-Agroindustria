@@ -824,7 +824,7 @@ header.scrolled .logo img, header.scrolled .logo-img {
   letter-spacing: 0.3px;
 }
 
-/* --- Container do Viewer (Fase 4: 3D / Fotos / Vídeos) --- */
+/* --- Container do Viewer --- */
 .card-equipment-viewer {
   width: 100%;
   height: 220px;
@@ -833,26 +833,10 @@ header.scrolled .logo img, header.scrolled .logo-img {
   border-radius: var(--border-radius-sm);
   background-color: var(--color-bg-light);
   margin-bottom: var(--space-sm);
-}
-
-/* Painéis de conteúdo — visibilidade via classe .active */
-.viewer-panel {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease;
-}
-
-.viewer-panel.active {
-  opacity: 1;
-  pointer-events: auto;
+  cursor: pointer;
 }
 
 /* Painel 3D — model-viewer */
@@ -862,136 +846,17 @@ header.scrolled .logo img, header.scrolled .logo-img {
   --poster-color: transparent;
 }
 
-/* Fallback 3D — quando modelo GLB não está disponível */
-.viewer-3d-fallback {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
+/* Imagem do equipamento */
 .viewer-fallback-img {
   max-height: 100%;
   max-width: 100%;
   object-fit: contain;
   transition: var(--transition);
-  padding: var(--space-xs);
+  padding: var(--space-sm);
 }
 
 .card-equipment:hover .viewer-fallback-img {
   transform: scale(1.05);
-}
-
-.viewer-fallback-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 6px 0;
-  background: linear-gradient(to top, rgba(45, 59, 31, 0.8), transparent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  pointer-events: none;
-}
-
-.viewer-fallback-overlay svg {
-  width: 14px;
-  height: 14px;
-  color: var(--color-text-white);
-  opacity: 0.85;
-}
-
-.viewer-fallback-overlay span {
-  font-family: var(--font-title);
-  font-size: 0.62rem;
-  font-weight: 600;
-  color: var(--color-text-white);
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  opacity: 0.85;
-}
-
-/* Painel de Fotos */
-.viewer-fotos-img {
-  max-height: 100%;
-  max-width: 100%;
-  object-fit: contain;
-  padding: var(--space-xs);
-  transition: var(--transition);
-}
-
-.card-equipment:hover .viewer-panel-fotos.active .viewer-fotos-img {
-  transform: scale(1.05);
-}
-
-/* Painel de Vídeos — placeholder */
-.viewer-videos-placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  color: var(--color-text-muted);
-  cursor: pointer;
-}
-
-.viewer-videos-placeholder svg {
-  width: 28px;
-  height: 28px;
-  fill: var(--color-primary);
-  opacity: 0.7;
-  transition: var(--transition);
-}
-
-.viewer-videos-placeholder span {
-  font-family: var(--font-title);
-  font-size: 0.68rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--color-text-muted);
-}
-
-.viewer-videos-placeholder:hover svg {
-  opacity: 1;
-  transform: scale(1.15);
-}
-
-/* --- Abas de Navegação do Card de Equipamento --- */
-.card-equipment-tabs {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  gap: var(--space-xs);
-  margin-top: auto;
-}
-
-.tab-btn {
-  flex: 1;
-  font-family: var(--font-title);
-  font-size: 0.62rem;
-  font-weight: 700;
-  padding: 6px 2px;
-  text-transform: uppercase;
-  color: var(--color-primary);
-  border: 1px solid var(--color-primary);
-  border-radius: var(--border-radius-sm);
-  text-align: center;
-  transition: var(--transition-fast);
-  position: relative;
-}
-
-.tab-btn:hover {
-  background-color: rgba(107, 142, 35, 0.1);
-}
-
-.tab-btn.active {
-  background-color: var(--color-primary-a11y); /* WCAG AA */
-  color: var(--color-text-white);
 }
 
 /* ==========================================================================
@@ -1055,221 +920,8 @@ header.scrolled .logo img, header.scrolled .logo-img {
   margin-top: var(--space-xl);
 }
 
-/* ==========================================================================
-   PROJETOS EXECUTADOS
-   ========================================================================== */
-.projects-layout {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: var(--space-2xl);
-  align-items: start;
-}
 
-.projects-sidebar {
-  position: sticky;
-  top: 120px;
-}
 
-.projects-sidebar .section-header {
-  margin-bottom: var(--space-md);
-}
-
-.projects-sidebar p {
-  color: var(--color-text-muted);
-  margin-bottom: var(--space-lg);
-  font-size: 0.9rem;
-  line-height: 1.6;
-}
-
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-md);
-}
-
-.card-project {
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-}
-
-.card-project-img {
-  position: relative;
-  overflow: hidden;
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-card);
-  margin-bottom: var(--space-sm);
-  aspect-ratio: 4 / 3;
-}
-
-.card-project-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: var(--transition);
-}
-
-.card-project-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(45, 59, 31, 0.45); /* Overlay verde escuro translúcido */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: var(--transition);
-  z-index: 2;
-  gap: var(--space-sm);
-}
-
-.card-project-overlay-icon {
-  background-color: var(--color-accent);
-  color: var(--color-text-dark);
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: var(--shadow-md);
-  transform: translateY(10px) scale(0.9);
-  transition: var(--transition);
-}
-
-.card-project-overlay-icon svg {
-  width: 18px;
-  height: 18px;
-  fill: currentColor;
-}
-
-.card-project-overlay-text {
-  font-family: var(--font-title);
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--color-text-white);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  transform: translateY(10px);
-  transition: var(--transition);
-}
-
-/* Hover States */
-.card-project:hover .card-project-img img {
-  transform: scale(1.05);
-  filter: brightness(0.45); /* Escurece a imagem */
-}
-
-.card-project:hover .card-project-overlay {
-  opacity: 1;
-}
-
-.card-project:hover .card-project-overlay-icon {
-  transform: translateY(0) scale(1);
-}
-
-.card-project:hover .card-project-overlay-text {
-  transform: translateY(0);
-}
-
-.card-project-info {
-  padding: 0 4px;
-}
-
-.card-project-title {
-  font-family: var(--font-title);
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--color-text-dark);
-  margin-bottom: 2px;
-  line-height: 1.3;
-}
-
-.card-project-sub {
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-}
-
-/* ==========================================================================
-   MODAL DE IMAGEM (LIGHTBOX PROJETOS)
-   ========================================================================== */
-.image-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
-  z-index: 2000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: var(--transition);
-}
-
-.image-modal.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.image-modal-content {
-  position: relative;
-  width: auto;
-  max-width: 90%;
-  max-height: 85vh;
-  background-color: transparent;
-  border-radius: var(--border-radius);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  transform: scale(0.9);
-  transition: var(--transition);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.image-modal.active .image-modal-content {
-  transform: scale(1);
-}
-
-.image-modal-img {
-  max-width: 100%;
-  max-height: 85vh;
-  object-fit: contain;
-  border-radius: var(--border-radius);
-  display: block;
-}
-
-.image-modal-close {
-  position: absolute;
-  top: -45px;
-  right: 0;
-  color: var(--color-text-white);
-  font-size: 1.5rem;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: var(--transition);
-}
-
-.image-modal-close:hover {
-  color: var(--color-accent);
-}
-
-.image-modal-close svg {
-  width: 20px;
-  height: 20px;
-  fill: currentColor;
-}
 
 /* ==========================================================================
    SEÇÃO VÍDEOS
@@ -2252,6 +1904,94 @@ footer {
   white-space: nowrap;
 }
 
+/* ==========================================================================
+   LIGHTBOX DE IMAGEM GENÉRICA (EQUIPAMENTOS)
+   ========================================================================== */
+.image-lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.92);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.image-lightbox.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.image-lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  color: var(--color-text-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  z-index: 10;
+  transition: var(--transition);
+}
+
+.image-lightbox-close:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.image-lightbox-close svg {
+  width: 22px;
+  height: 22px;
+}
+
+.image-lightbox-content {
+  max-width: 85vw;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image-lightbox-img {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+}
+
+.image-lightbox.active .image-lightbox-img {
+  transform: scale(1);
+}
+
+.image-lightbox-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  padding: var(--space-md) 0;
+}
+
+.image-lightbox-caption {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-white);
+  text-align: center;
+}
+
+
 /* Hero Subtitle (Fase 2 — reforçando aqui para não perder) */
 .hero-subtitle {
   font-family: var(--font-title);
@@ -2325,21 +2065,21 @@ footer {
     grid-template-columns: repeat(3, 1fr);
   }
   
-  .projects-layout, .videos-layout {
+  .videos-layout {
     grid-template-columns: 1fr;
     gap: var(--space-xl);
   }
   
-  .projects-sidebar, .videos-sidebar {
+  .videos-sidebar {
     position: static;
     text-align: center;
   }
   
-  .projects-grid, .videos-grid {
+  .videos-grid {
     grid-template-columns: repeat(4, 1fr);
   }
   
-  .projects-sidebar .btn, .videos-sidebar .btn {
+  .videos-sidebar .btn {
     margin-top: var(--space-sm);
   }
   
@@ -2433,7 +2173,7 @@ footer {
     grid-template-columns: repeat(2, 1fr);
   }
   
-  .projects-grid, .videos-grid {
+  .videos-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-md);
   }
@@ -2494,7 +2234,7 @@ footer {
     gap: var(--space-sm);
   }
 
-  .projects-grid, .videos-grid {
+  .videos-grid {
     grid-template-columns: 1fr 1fr;
     gap: var(--space-sm);
   }

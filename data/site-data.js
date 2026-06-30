@@ -25,11 +25,13 @@ export const SITE_DATA = {
     linkedin: '#',                   // TODO: Atualizar com a URL oficial do LinkedIn
   },
   equipments: [
-    { id: 'rosca-calha', name: 'Rosca Transportadora Tipo Calha', image: 'Imagens/Rosca transportadora tipo calha.png', model3d: '' }, // TODO: Pendente fornecimento do arquivo GLB pelo cliente
-    { id: 'rosca-chupim', name: 'Rosca Transportadora Tipo Chupim', image: 'Imagens/Rosca transportadora tipo chupim.png', model3d: '' }, // TODO: Pendente fornecimento do arquivo GLB pelo cliente
-    { id: 'elevador-canecas', name: 'Elevador de Canecas', image: 'Imagens/Elevador de canecas.png', model3d: '' }, // TODO: Pendente fornecimento do arquivo GLB pelo cliente
-    { id: 'misturador-horizontal', name: 'Misturador Horizontal', image: 'Imagens/Misturador horizontal.png', model3d: '' }, // TODO: Pendente fornecimento do arquivo GLB pelo cliente
-    { id: 'misturador-vertical', name: 'Misturador Vertical', image: 'Imagens/Misturador vertical.png', model3d: '' }, // TODO: Pendente fornecimento do arquivo GLB pelo cliente
+    { id: 'rosca-calha', name: 'Rosca Transportadora Tipo Calha', image: 'Imagens/Rosca transportadora tipo calha.png', model3d: '' },
+    { id: 'rosca-chupim', name: 'Rosca Transportadora Tipo Chupim', image: 'Imagens/Rosca transportadora tipo chupim.png', model3d: '' },
+    { id: 'elevador-canecas', name: 'Elevador de Canecas', image: 'Imagens/Elevador de canecas.png', model3d: '' },
+    { id: 'misturador-horizontal', name: 'Misturador Horizontal', image: 'Imagens/Misturador horizontal.png', model3d: '' },
+    { id: 'misturador-vertical', name: 'Misturador Vertical', image: 'Imagens/Misturador vertical.png', model3d: '' },
+    { id: 'dosadora-helicoidal', name: 'Dosadora Helicoidal', image: 'Imagens/Dosadora.png', model3d: '' },
+    { id: 'silo-pulmao', name: 'Silo Pulmão', image: 'Imagens/Silo Pulmo.png', model3d: '' },
   ],
   galleryImages: [
     { id: 'galeria-1', src: 'Imagens/Galeria_1.jpeg', alt: 'Projeto industrial Centro Oeste Agroindústria - Vista 1', category: 'fabricas' },
@@ -46,15 +48,7 @@ export const SITE_DATA = {
     'Válvulas rotativas', 'Registros gaveta', 'Componentes para misturadores',
     'Tubulações e estruturas metálicas',
   ],
-  projects: [
-    { id: 'projeto-1', title: 'FÁBRICA DE RAÇÃO', subtitle: 'Projeto Completo', image: 'Imagens/Galeria_1.jpeg' },
-    { id: 'projeto-2', title: 'SISTEMA DE ENSACAMENTO', subtitle: 'Automático', image: 'Imagens/Galeria_2.jpeg' },
-    { id: 'projeto-3', title: 'SILO ARMAZENAGEM E TRANSPORTE', subtitle: 'Estrutura Industrial', image: 'Imagens/Galeria_3.jpeg' },
-    { id: 'projeto-4', title: 'PLANTA PARA FERTILIZANTES', subtitle: 'Projeto Completo', image: 'Imagens/Galeria_4.jpeg' },
-    { id: 'projeto-5', title: 'LINHA DE MISTURA', subtitle: 'Instalação Comercial', image: 'Imagens/Galeria_5.jpeg' },
-    { id: 'projeto-6', title: 'SISTEMA DE TRANSPORTE', subtitle: 'Movimentação de Sólidos', image: 'Imagens/Galeria_6.jpeg' },
-    { id: 'projeto-7', title: 'PROCESSAMENTO DE RAÇÃO', subtitle: 'Estrutura Completa', image: 'Imagens/Galeria_7.jpeg' },
-  ],
+
   videos: [
     { id: 'video-elevador', title: 'Elevador de Canecas', status: 'em funcionamento', embedUrl: '', thumbnail: 'assets/videos/elevador-canecas-video.png' },
     { id: 'video-misturador', title: 'Misturador Horizontal', status: 'em operação', embedUrl: '', thumbnail: 'assets/videos/misturador-horizontal-video.png' },
