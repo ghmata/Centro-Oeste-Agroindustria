@@ -12,11 +12,11 @@ export const SITE_DATA = {
     description: 'Referência na fabricação de equipamentos robustos para fábricas de ração, sal mineral e adubos.',
   },
   contact: {
-    phone: '(31) 99999-9999',       // TODO: Atualizar com dados reais fornecidos pelo cliente
-    phoneRaw: '5531999999999',       // TODO: Atualizar com dados reais fornecidos pelo cliente
-    email: 'contato@centroesteagroindustria.com.br', // TODO: Atualizar com dados reais fornecidos pelo cliente
-    address: 'Rua das Indústrias, 123 – Distrito Industrial – Belo Horizonte/MG — CEP 30000-000', // TODO: Atualizar com dados reais fornecidos pelo cliente
-    whatsappMessage: 'Olá! Vim pelo site e gostaria de falar com a equipe da Centro Oeste Agroindústria.',
+    phone: '(66) 99942-1349',
+    phoneRaw: '5566999421349',
+    email: 'contato@centroesteagroindustria.com.br',
+    address: 'Rua Espírito Santo, 1061 - Rondonópolis/MT',
+    whatsappMessage: 'Olá João Batista! Vim pelo site da Centro Oeste Agroindústria e gostaria de solicitar um orçamento.',
   },
   social: {
     facebook: '#',                   // TODO: Atualizar com a URL oficial do Facebook
@@ -41,6 +41,11 @@ export const SITE_DATA = {
     { id: 'galeria-5', src: 'Imagens/Galeria_5.jpeg', alt: 'Projeto industrial Centro Oeste Agroindústria - Vista 5', category: 'instalacoes' },
     { id: 'galeria-6', src: 'Imagens/Galeria_6.jpeg', alt: 'Projeto industrial Centro Oeste Agroindústria - Vista 6', category: 'equipamentos' },
     { id: 'galeria-7', src: 'Imagens/Galeria_7.jpeg', alt: 'Projeto industrial Centro Oeste Agroindústria - Vista 7', category: 'fabricas' },
+    { id: 'galeria-8', src: 'Imagens/Galeria_8.jpeg', alt: 'Instalação industrial Centro Oeste Agroindústria - Vista 8', category: 'instalacoes' },
+    { id: 'galeria-9', src: 'Imagens/Galeria_9.jpeg', alt: 'Equipamento industrial Centro Oeste Agroindústria - Vista 9', category: 'equipamentos' },
+    { id: 'galeria-10', src: 'Imagens/Galeria_10.jpeg', alt: 'Projeto de fábrica Centro Oeste Agroindústria - Vista 10', category: 'fabricas' },
+    { id: 'galeria-11', src: 'Imagens/Galeria_11.jpeg', alt: 'Montagem industrial Centro Oeste Agroindústria - Vista 11', category: 'instalacoes' },
+    { id: 'galeria-12', src: 'Imagens/Galeria_12.jpeg', alt: 'Maquinário de processamento Centro Oeste Agroindústria - Vista 12', category: 'equipamentos' },
   ],
   spareParts: [
     'Martelos para moinhos', 'Peneiras industriais', 'Roscas helicoidais',

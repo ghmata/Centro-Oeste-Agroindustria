@@ -8,32 +8,32 @@
 /* Variáveis do Design System */
 :root {
   /* ═══ Paleta Institucional (documento do cliente) ═══ */
-  --verde-oliva: #6B8E23;
-  --verde-claro: #8BC34A;
-  --marrom-terra: #8D6E63;
-  --cinza-engrenagem: #8A8A8A;
+  --verde-logo-vibrante: #1e7f3c;   /* Verde principal da logo */
+  --verde-claro: #6baa42;
+  --marrom-terra: #6e4122;
+  --cinza-engrenagem: #6a6a6a;
   --branco: #FFFFFF;
-  --preto-texto: #1A1A1A;
-  --bg-escuro: #2D3B1E;
+  --preto-texto: #112417;           /* Verde escuro de alto contraste quase preto */
+  --bg-escuro: #0b2914;             /* Verde profundo industrial (mais escuro e elegante) */
 
   /* ═══ Tokens Semânticos ═══ */
-  --color-primary: var(--verde-oliva);
+  --color-primary: var(--verde-logo-vibrante);
   --color-primary-dark: var(--bg-escuro);
-  --color-primary-a11y: #527A1E;    /* Verde oliva escurecido — ratio 4.73:1 com branco (WCAG AA) */
-  --color-primary-light: var(--verde-oliva); /* Mantendo compatibilidade com estilos antigos */
+  --color-primary-a11y: #155c2b;    /* Verde oliva escurecido — ratio 4.73:1 com branco (WCAG AA) */
+  --color-primary-light: var(--verde-logo-vibrante);
   --color-accent: #C8A84E;          /* Dourado CTA */
   --color-accent-dark: #B0923C;
   --color-highlight: var(--verde-claro);
   --color-text-dark: var(--preto-texto);
   --color-text-secondary: var(--marrom-terra);
-  --color-text-muted: var(--cinza-engrenagem);
+  --color-text-muted: #55685d;       /* Cinza sálvia escurecido para textos secundários */
   --color-text-white: var(--branco);
-  --color-bg-light: #F5F5F0;
+  --color-bg-light: #f4f7f5;        /* Verde sálvia claríssimo e elegante para respiro visual */
   --color-bg-white: var(--branco);
   --color-whatsapp: #25D366;        /* Verde oficial do WhatsApp */
   --color-whatsapp-dark: #128C7E;   /* Verde WhatsApp Hover */
-  --color-border: #E2E2D9;          /* Cor de borda padrão */
-  --color-overlay: rgba(45, 59, 31, 0.85); /* Overlay verde escuro do Hero */
+  --color-border: #e1eae5;          /* Linha de borda extremamente sutil */
+  --color-overlay: rgba(11, 41, 20, 0.85); /* Overlay verde profundo no Hero */
 
   /* ═══ Tipografia ═══ */
   --font-title: 'Inter', sans-serif;
@@ -135,10 +135,147 @@ ul {
 
 .bg-light {
   background-color: var(--color-bg-light);
+  color: var(--color-text-dark);
+}
+
+.bg-light .section-title {
+  color: var(--color-primary-dark);
+}
+
+.bg-light .section-subtitle {
+  color: var(--color-text-muted);
+}
+
+.bg-light p {
+  color: var(--color-text-muted);
 }
 
 .bg-white {
   background-color: var(--color-bg-white);
+}
+
+.bg-dark-green {
+  background-color: var(--color-primary-dark);
+  color: var(--color-text-white);
+}
+
+.bg-salvia {
+  background-color: var(--color-bg-light);
+  color: var(--color-text-dark);
+}
+
+/* ═══ Seções de Destaque: Gradiente Verde Industrial (Estratégia 2) ═══ */
+.bg-green-gradient {
+  /* Gradiente linear escuro de 3 pontos: garante que o fundo seja consistentemente escuro para legibilidade da tipografia clara */
+  background: linear-gradient(135deg, #061c0d 0%, #11401f 50%, #061c0d 100%);
+  color: var(--color-text-white);
+  position: relative;
+}
+
+.bg-green-gradient .section-title {
+  color: var(--color-text-white);
+}
+
+.bg-green-gradient .section-subtitle {
+  color: rgba(218, 230, 222, 0.7);
+}
+
+.bg-green-gradient p {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* Força a descrição da seção a ficar clara em seções com gradiente escuro */
+.bg-green-gradient .section-desc {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Botões dentro do gradiente industrial */
+.bg-green-gradient .btn-outline {
+  border-color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-white);
+}
+
+.bg-green-gradient .btn-outline:hover {
+  background-color: var(--color-text-white);
+  color: var(--color-primary-dark);
+  border-color: var(--color-text-white);
+}
+
+/* Filtros da galeria sobre fundo escuro */
+.bg-green-gradient .gallery-filter-btn {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.bg-green-gradient .gallery-filter-btn:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: var(--color-text-white);
+}
+
+.bg-green-gradient .gallery-filter-btn.active {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-primary-dark);
+}
+
+/* Itens da galeria sobre fundo escuro */
+.bg-green-gradient .gallery-item {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Títulos de vídeos sobre fundo escuro */
+.bg-green-gradient .card-video-title {
+  color: var(--color-text-white);
+}
+
+.bg-green-gradient .card-video-sub {
+  color: rgba(218, 230, 222, 0.7);
+}
+
+/* Adaptações da Seção Sobre e Peças sob o gradiente verde */
+.bg-green-gradient .about-text {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.bg-green-gradient .spare-part-item {
+  background-color: var(--color-bg-white);
+  border-color: transparent;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.bg-green-gradient .spare-part-item:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  transform: translateY(-4px);
+  background-color: var(--color-bg-white);
+}
+
+.bg-green-gradient .spare-part-text {
+  color: var(--color-text-dark);
+}
+
+/* Adaptações da seção de contato sobre fundo escuro */
+.bg-green-gradient .contact-info-text {
+  color: #cbe3d3;
+}
+
+.bg-green-gradient .contact-detail-item strong {
+  color: var(--color-text-white);
+}
+
+.bg-green-gradient .contact-detail-item a,
+.bg-green-gradient .contact-detail-item span {
+  color: #cbe3d3;
+}
+
+.bg-green-gradient .contact-detail-item svg {
+  stroke: var(--color-highlight);
+}
+
+.bg-green-gradient .contact-detail-item a:hover {
+  color: var(--color-highlight);
 }
 
 .text-center {
@@ -237,15 +374,18 @@ ul {
 }
 
 .btn-primary {
-  background-color: var(--color-accent);
-  color: var(--color-text-dark);
-  box-shadow: var(--shadow-sm);
+  background-color: var(--color-primary);
+  color: var(--color-text-white);
+  border: 2px solid var(--color-text-white);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
 }
 
 .btn-primary:hover {
-  background-color: var(--color-accent-dark);
+  background-color: var(--color-text-secondary);
+  border-color: var(--color-text-secondary);
+  color: var(--color-text-white);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 .btn-secondary {
@@ -270,6 +410,16 @@ ul {
   background-color: var(--color-text-dark);
   color: var(--color-text-white);
   transform: translateY(-2px);
+}
+
+.bg-dark-green .btn-outline {
+  border-color: var(--color-text-white);
+  color: var(--color-text-white);
+}
+
+.bg-dark-green .btn-outline:hover {
+  background-color: var(--color-text-white);
+  color: var(--color-primary-dark);
 }
 
 .btn-whatsapp {
@@ -466,7 +616,7 @@ header.scrolled .logo img, header.scrolled .logo-img {
   background-size: cover;
   background-position: center;
   color: var(--color-text-white);
-  min-height: max(500px, 65vh);
+  min-height: 720px; /* Aumentado para dar mais destaque e espaço para a imagem industrial */
   display: flex;
   align-items: center;
   z-index: 1;
@@ -479,7 +629,14 @@ header.scrolled .logo img, header.scrolled .logo-img {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(105deg, var(--color-overlay) 0%, rgba(45, 59, 31, 0.75) 45%, rgba(45, 59, 31, 0.3) 75%, rgba(45, 59, 31, 0.15) 100%);
+  /* Duotone: gradiente do verde profundo ao verde da logo (Estratégia 1 + 2) */
+  background: linear-gradient(
+    135deg,
+    rgba(11, 41, 20, 0.93) 0%,
+    rgba(18, 76, 36, 0.82) 40%,
+    rgba(30, 127, 60, 0.55) 75%,
+    rgba(30, 127, 60, 0.35) 100%
+  );
   z-index: -1;
 }
 
@@ -563,7 +720,7 @@ header.scrolled .logo img, header.scrolled .logo-img {
    BARRA DE DIFERENCIAIS
    ========================================================================== */
 .features-bar {
-  background-color: var(--color-bg-white);
+  background-color: var(--color-bg-light);
   border-bottom: 1px solid var(--color-border);
   border-top: 1px solid var(--color-border);
   padding: var(--space-xl) 0;
@@ -649,15 +806,15 @@ header.scrolled .logo img, header.scrolled .logo-img {
 }
 
 .about-wrapper {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: var(--space-3xl);
-  align-items: center;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .about-content {
   display: flex;
   flex-direction: column;
+  text-align: center;
+  align-items: center;
 }
 
 .about-text {
@@ -792,21 +949,21 @@ header.scrolled .logo img, header.scrolled .logo-img {
 
 .card-equipment {
   background-color: var(--color-bg-white);
-  border-radius: var(--border-radius);
-  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid transparent;
   padding: 20px 14px 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  box-shadow: var(--shadow-card);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   transition: var(--transition);
 }
 
 .card-equipment:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--color-primary);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+  border-color: var(--color-accent);
 }
 
 .card-equipment-title {
@@ -831,7 +988,7 @@ header.scrolled .logo img, header.scrolled .logo-img {
   position: relative;
   overflow: hidden;
   border-radius: var(--border-radius-sm);
-  background-color: var(--color-bg-light);
+  background: radial-gradient(circle, #ffffff 40%, var(--color-bg-light) 100%);
   margin-bottom: var(--space-sm);
   display: flex;
   align-items: center;
@@ -853,10 +1010,12 @@ header.scrolled .logo img, header.scrolled .logo-img {
   object-fit: contain;
   transition: var(--transition);
   padding: var(--space-sm);
+  filter: drop-shadow(0 4px 8px rgba(17, 36, 23, 0.08));
 }
 
 .card-equipment:hover .viewer-fallback-img {
   transform: scale(1.05);
+  filter: drop-shadow(0 8px 16px rgba(17, 36, 23, 0.14));
 }
 
 /* ==========================================================================
@@ -1204,16 +1363,31 @@ footer {
 
 /* Barra de Copyright */
 .copyright-bar {
-  background-color: #1E2714; /* Tom de verde ainda mais escuro */
+  background-color: #05140b; /* Verde floresta muito escuro alinhado com o footer */
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   padding: 24px 0;
   margin-top: 60px;
 }
 
-.copyright-text {
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.5);
+.copyright-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
   text-align: center;
+}
+
+.copyright-text {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+}
+
+.cnpj-text {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.5;
+  letter-spacing: 0.2px;
 }
 
 /* ==========================================================================
@@ -1882,13 +2056,7 @@ footer {
 }
 
 .gallery-lightbox-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 600px;
-  padding: var(--space-md) 0;
-  gap: var(--space-md);
+  display: none; /* Removidos os textos de legenda e paginação para exibir exclusivamente a imagem */
 }
 
 .gallery-lightbox-caption {
@@ -2117,6 +2285,12 @@ footer {
     padding: var(--space-3xl) 0;
   }
 
+  .hero {
+    min-height: 560px; /* Altura imponente no celular */
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-2xl);
+  }
+
   .header-container {
     height: 80px;
   }
@@ -2264,7 +2438,7 @@ footer {
 /* Ajustes de Layout e Estilo da Seção Sobre e Botões */
 .section-title-about {
   margin-bottom: var(--space-md);
-  text-align: left;
+  text-align: center;
 }
 
 .btn-play-icon-small {
