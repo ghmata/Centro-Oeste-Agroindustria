@@ -542,7 +542,7 @@ header.scrolled .logo img, header.scrolled .logo-img {
   align-items: center;
   gap: 24px;
   margin-left: auto;
-  margin-right: 48px;
+  margin-right: auto;
 }
 
 .nav-link {
@@ -641,14 +641,18 @@ header.scrolled .logo img, header.scrolled .logo-img {
 }
 
 .hero-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 0.6fr;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: var(--space-2xl);
+  text-align: center;
+  gap: var(--space-md);
 }
 
 .hero-content {
   padding: var(--space-3xl) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .hero-title {
@@ -673,8 +677,10 @@ header.scrolled .logo img, header.scrolled .logo-img {
   font-size: 0.95rem;
   line-height: 1.7;
   margin-bottom: var(--space-xl);
-  max-width: 540px;
+  max-width: 640px;
   color: rgba(255, 255, 255, 0.85);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hero-btns {
@@ -682,6 +688,7 @@ header.scrolled .logo img, header.scrolled .logo-img {
   gap: var(--space-lg);
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
 }
 
 .hero-btns .btn-outline {
@@ -697,10 +704,7 @@ header.scrolled .logo img, header.scrolled .logo-img {
 }
 
 .hero-visual {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+  display: none;
 }
 
 .hero-equipment-img {
@@ -941,10 +945,10 @@ header.scrolled .logo img, header.scrolled .logo-img {
 }
 
 .equipments-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--space-md);
-  justify-items: center;
+  justify-content: center;
 }
 
 .card-equipment {
@@ -958,6 +962,18 @@ header.scrolled .logo img, header.scrolled .logo-img {
   text-align: center;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   transition: var(--transition);
+  flex: 0 0 calc(20% - 13px);
+  max-width: calc(20% - 13px);
+}
+
+/* --- Carousel Wrapper & Navigation --- */
+.equipments-carousel-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.carousel-nav-btn {
+  display: none;
 }
 
 .card-equipment:hover {
@@ -1022,9 +1038,10 @@ header.scrolled .logo img, header.scrolled .logo-img {
    PEÇAS DE REPOSIÇÃO
    ========================================================================== */
 .spare-parts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--space-md);
+  justify-content: center;
   margin-bottom: var(--space-xl);
 }
 
@@ -1038,6 +1055,9 @@ header.scrolled .logo img, header.scrolled .logo-img {
   padding: var(--space-md);
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
+  flex: 0 0 calc(25% - 12px);
+  max-width: calc(25% - 12px);
+  min-width: 220px;
 }
 
 .spare-part-item:hover {
@@ -2116,6 +2136,39 @@ footer {
   background-color: rgba(255, 255, 255, 0.25);
 }
 
+.image-lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  color: var(--color-text-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  z-index: 10;
+  transition: var(--transition);
+}
+
+.image-lightbox-nav:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.image-lightbox-nav svg {
+  width: 24px;
+  height: 24px;
+}
+
+.image-lightbox-prev {
+  left: 20px;
+}
+
+.image-lightbox-next {
+  right: 20px;
+}
+
 .image-lightbox-close svg {
   width: 22px;
   height: 22px;
@@ -2230,7 +2283,75 @@ footer {
   }
   
   .equipments-grid {
-    grid-template-columns: repeat(3, 1fr);
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    gap: var(--space-md);
+    padding: var(--space-md) 0;
+    justify-content: flex-start;
+    scrollbar-width: none;
+  }
+
+  .equipments-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .card-equipment {
+    flex: 0 0 60%;
+    max-width: 60%;
+    scroll-snap-align: center;
+  }
+
+  .equipments-carousel-wrapper {
+    padding: 0 50px;
+  }
+
+  .carousel-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    color: var(--color-text-white);
+    z-index: 10;
+    transition: var(--transition);
+  }
+
+  .carousel-nav-btn:hover {
+    background-color: var(--color-accent);
+    color: var(--color-primary-dark);
+    border-color: var(--color-accent);
+  }
+
+  .carousel-nav-btn.disabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .carousel-nav-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .carousel-prev-btn {
+    left: 0;
+  }
+
+  .carousel-next-btn {
+    right: 0;
+  }
+
+  .spare-part-item {
+    flex: 0 0 calc(33.333% - 11px);
+    max-width: calc(33.333% - 11px);
   }
   
   .videos-layout {
@@ -2298,6 +2419,7 @@ footer {
   /* Menu Mobile */
   .menu-toggle {
     display: flex;
+    margin-left: auto;
   }
   
   .nav-menu {
@@ -2343,8 +2465,14 @@ footer {
     gap: var(--space-md);
   }
   
-  .equipments-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .card-equipment {
+    flex: 0 0 80%;
+    max-width: 80%;
+  }
+
+  .spare-part-item {
+    flex: 0 0 calc(50% - 8px);
+    max-width: calc(50% - 8px);
   }
   
   .videos-grid {
@@ -2371,6 +2499,19 @@ footer {
   }
 
   .gallery-lightbox-next {
+    right: 10px;
+  }
+
+  .image-lightbox-nav {
+    width: 36px;
+    height: 36px;
+  }
+
+  .image-lightbox-prev {
+    left: 10px;
+  }
+
+  .image-lightbox-next {
     right: 10px;
   }
 
@@ -2403,9 +2544,34 @@ footer {
     grid-template-columns: 1fr;
   }
 
-  .equipments-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-sm);
+  .card-equipment {
+    flex: 0 0 85%;
+    max-width: 85%;
+  }
+
+  .equipments-carousel-wrapper {
+    padding: 0 0 var(--space-xl) 0;
+  }
+
+  .carousel-nav-btn {
+    top: auto;
+    bottom: 0;
+    transform: none;
+    width: 40px;
+    height: 40px;
+  }
+
+  .carousel-prev-btn {
+    left: calc(50% - 50px);
+  }
+
+  .carousel-next-btn {
+    right: calc(50% - 50px);
+  }
+
+  .spare-part-item {
+    flex: 0 0 100%;
+    max-width: 100%;
   }
 
   .videos-grid {

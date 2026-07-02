@@ -7,6 +7,7 @@ import { SITE_DATA } from '../data/site-data.js';
 import { initContactForm } from './form.js';
 import { initGallery } from './gallery.js';
 import { initVideoModal } from './video-modal.js';
+import { setupSwipe } from './swipe-helper.js';
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -398,24 +399,33 @@ document.addEventListener('DOMContentLoaded', () => {
   const imageLightboxImg = document.getElementById('imageLightboxImg');
   const imageLightboxCaption = document.getElementById('imageLightboxCaption');
   const imageLightboxClose = document.getElementById('imageLightboxClose');
+  const imageLightboxPrev = document.getElementById('imageLightboxPrev');
+  const imageLightboxNext = document.getElementById('imageLightboxNext');
   const equipmentsGridEl = document.getElementById('equipmentsGrid');
 
   if (imageLightbox && imageLightboxImg && imageLightboxCaption && imageLightboxClose && equipmentsGridEl) {
+    let currentEqIndex = 0;
+
+    const showEquipmentInLightbox = (index) => {
+      if (index < 0 || index >= SITE_DATA.equipments.length) return;
+      currentEqIndex = index;
+      
+      const eq = SITE_DATA.equipments[index];
+      imageLightboxImg.setAttribute('src', eq.image);
+      imageLightboxImg.setAttribute('alt', eq.name);
+      imageLightboxCaption.textContent = eq.name;
+    };
+
     equipmentsGridEl.addEventListener('click', (e) => {
       // Abre ao clicar no card ou na imagem do equipamento
       const card = e.target.closest('.card-equipment');
       if (card) {
-        const img = card.querySelector('.card-equipment-viewer img');
-        const title = card.querySelector('.card-equipment-title');
+        // Encontra o index do equipamento clicado com base no ID
+        const idStr = card.id.replace('eq-', '');
+        const index = SITE_DATA.equipments.findIndex(eq => eq.id === idStr);
         
-        if (img) {
-          imageLightboxImg.setAttribute('src', img.getAttribute('src'));
-          imageLightboxImg.setAttribute('alt', img.getAttribute('alt') || 'Equipamento');
-          
-          if (imageLightboxCaption && title) {
-            imageLightboxCaption.textContent = title.textContent;
-          }
-          
+        if (index !== -1) {
+          showEquipmentInLightbox(index);
           imageLightbox.classList.add('active');
           document.body.style.overflow = 'hidden'; // Trava o scroll da página
           imageLightboxClose.focus(); // Acessibilidade
@@ -431,6 +441,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     imageLightboxClose.addEventListener('click', closeImageLightbox);
 
+    if (imageLightboxPrev) {
+      imageLightboxPrev.addEventListener('click', (e) => {
+        e.stopPropagation();
+        let prevIndex = currentEqIndex - 1;
+        if (prevIndex < 0) {
+          prevIndex = SITE_DATA.equipments.length - 1; // Loop circular
+        }
+        showEquipmentInLightbox(prevIndex);
+      });
+    }
+
+    if (imageLightboxNext) {
+      imageLightboxNext.addEventListener('click', (e) => {
+        e.stopPropagation();
+        let nextIndex = currentEqIndex + 1;
+        if (nextIndex >= SITE_DATA.equipments.length) {
+          nextIndex = 0; // Loop circular
+        }
+        showEquipmentInLightbox(nextIndex);
+      });
+    }
+
     // Fecha ao clicar fora da imagem (no overlay escuro)
     imageLightbox.addEventListener('click', (e) => {
       if (e.target === imageLightbox) {
@@ -438,13 +470,96 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Fecha ao pressionar Escape
+    // Navegação via teclado (setas e ESC)
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && imageLightbox.classList.contains('active')) {
-        closeImageLightbox();
+      if (imageLightbox.classList.contains('active')) {
+        if (e.key === 'Escape') {
+          closeImageLightbox();
+        } else if (e.key === 'ArrowLeft' && imageLightboxPrev) {
+          imageLightboxPrev.click();
+        } else if (e.key === 'ArrowRight' && imageLightboxNext) {
+          imageLightboxNext.click();
+        }
       }
     });
+
+    // Ativa suporte a touch swipe no mobile/tablet com efeito visual
+    setupSwipe(
+      imageLightbox,
+      imageLightboxImg,
+      () => {
+        let prevIndex = currentEqIndex - 1;
+        if (prevIndex < 0) {
+          prevIndex = SITE_DATA.equipments.length - 1;
+        }
+        showEquipmentInLightbox(prevIndex);
+      },
+      () => {
+        let nextIndex = currentEqIndex + 1;
+        if (nextIndex >= SITE_DATA.equipments.length) {
+          nextIndex = 0;
+        }
+        showEquipmentInLightbox(nextIndex);
+      }
+    );
   }
+
+
+  // ==========================================
+  // 7.8 CAROUSEL DE EQUIPAMENTOS (MOBILE/TABLET)
+  // ==========================================
+  const initEquipmentsCarousel = () => {
+    const equipmentsGrid = document.getElementById('equipmentsGrid');
+    const prevBtn = document.getElementById('equipmentsPrevBtn');
+    const nextBtn = document.getElementById('equipmentsNextBtn');
+
+    if (equipmentsGrid && prevBtn && nextBtn) {
+      const getScrollAmount = () => {
+        const card = equipmentsGrid.querySelector('.card-equipment');
+        if (card) {
+          return card.offsetWidth + 16;
+        }
+        return equipmentsGrid.offsetWidth * 0.8;
+      };
+
+      prevBtn.addEventListener('click', () => {
+        equipmentsGrid.scrollBy({
+          left: -getScrollAmount(),
+          behavior: 'smooth'
+        });
+      });
+
+      nextBtn.addEventListener('click', () => {
+        equipmentsGrid.scrollBy({
+          left: getScrollAmount(),
+          behavior: 'smooth'
+        });
+      });
+
+      const toggleButtons = () => {
+        const scrollLeft = equipmentsGrid.scrollLeft;
+        const maxScrollLeft = equipmentsGrid.scrollWidth - equipmentsGrid.clientWidth;
+
+        if (scrollLeft <= 5) {
+          prevBtn.classList.add('disabled');
+        } else {
+          prevBtn.classList.remove('disabled');
+        }
+
+        if (scrollLeft >= maxScrollLeft - 5) {
+          nextBtn.classList.add('disabled');
+        } else {
+          nextBtn.classList.remove('disabled');
+        }
+      };
+
+      equipmentsGrid.addEventListener('scroll', toggleButtons);
+      setTimeout(toggleButtons, 200);
+      window.addEventListener('resize', toggleButtons);
+    }
+  };
+
+  initEquipmentsCarousel();
 
   // ==========================================
   // 8. LAZY LOADING DE IMAGENS

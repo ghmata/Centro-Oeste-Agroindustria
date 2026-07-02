@@ -4,6 +4,7 @@
    ========================================================================== */
 
 import { SITE_DATA } from '../data/site-data.js';
+import { setupSwipe } from './swipe-helper.js';
 
 /**
  * Inicializa a galeria de fotos: renderização, filtros e lightbox.
@@ -184,26 +185,10 @@ export function initGallery() {
   // ==========================================
   // SWIPE PARA MOBILE (Touch Events)
   // ==========================================
-  let touchStartX = 0;
-  let touchEndX = 0;
-  const SWIPE_THRESHOLD = 50; // Pixels mínimos para considerar um swipe
-
-  lightbox.addEventListener('touchstart', (e) => {
-    touchStartX = e.changedTouches[0].screenX;
-  }, { passive: true });
-
-  lightbox.addEventListener('touchend', (e) => {
-    touchEndX = e.changedTouches[0].screenX;
-    const diff = touchStartX - touchEndX;
-
-    if (Math.abs(diff) > SWIPE_THRESHOLD) {
-      if (diff > 0) {
-        // Swipe para esquerda → próxima
-        navigateLightbox(1);
-      } else {
-        // Swipe para direita → anterior
-        navigateLightbox(-1);
-      }
-    }
-  }, { passive: true });
+  setupSwipe(
+    lightbox,
+    lightboxImg,
+    () => navigateLightbox(-1),
+    () => navigateLightbox(1)
+  );
 }
